@@ -54,11 +54,35 @@ route.get('/fetchReview', async (req, res) => {
     return res.status(200).json({
       message: "Reviews fetched successfully",
       data: showReview
+      
     })
   } 
   catch (error) {
     return res.status(500).json({ message: "data not found", error })
   }
 })
+
+// admin login 
+const email = "admin@test.com";
+const pass = "admin@123&78";
+
+route.post('/admin', (req, res) => {
+  const { emailid, password } = req.body;
+
+  if (emailid === email && password === pass) {
+    return res.status(201).json({
+      message: "Your login credential is correct, you are authorised to login as admin"
+    });
+  } else {
+    return res.status(400).json({
+      message: "Login credentials not matched"
+    });
+  }
+});
+
+
+
+
+
 
 module.exports = route
