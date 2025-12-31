@@ -8,8 +8,8 @@ function ShowReview() {
     axios
       .get("http://localhost:5000/fetchReview")
       .then((res) => {
-        console.log(res.data.data);
-        setReviewData(res.data.data);
+        console.log(res.data.showReview);
+        setReviewData(res.data.showReview);
       })
       .catch((error) => console.log("data not received", error.message));
   }, []);

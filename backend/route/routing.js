@@ -1,6 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const ReviewMdl = require('../model/ReviewSchema.js')
+const{fetchPlaceId,fetchReview} =require('../service/googlePlaceApi.js')
+
+
 
 // =========================
 // POST — save reviewnod
@@ -45,22 +48,46 @@ route.post('/preview', async (req, res) => {
 
 
 
-// =========================
 // GET — fetch reviews
-// =========================
 route.get('/fetchReview', async (req, res) => {
   try {
-    const showReview = await ReviewMdl.find()
+    const [
+      showReview,
+      latestReview,
+      totalReview,
+      pendingReview,
+      averageRating
+    ] = await Promise.all([
+      ReviewMdl.find(),
+      ReviewMdl.find().sort({ submittedAt: -1 }).limit(5),
+      ReviewMdl.countDocuments(),
+      ReviewMdl.countDocuments({ status: "pending" }),
+      ReviewMdl.aggregate([
+        {
+          $group: {
+            _id: null,
+            avg: { $avg: "$rating" }
+          }
+        }
+      ])
+    ]);
+
     return res.status(200).json({
       message: "Reviews fetched successfully",
-      data: showReview
-      
-    })
-  } 
-  catch (error) {
-    return res.status(500).json({ message: "data not found", error })
+      showReview,
+      latestReview,
+      totalReview,
+      pendingReview,
+      averageRating: averageRating[0]?.avg || 0
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      message: "data not found",
+      error: error.message
+    });
   }
-})
+});
 
 // admin login 
 const email = "admin@test.com";
@@ -80,9 +107,39 @@ route.post('/admin', (req, res) => {
   }
 });
 
+// endpoint for creating graph data
+route.get('/drawChart', async (req, res) => {
+  try {
+    const trend = await ReviewMdl.aggregate([
+      {
+        $group: {
+          _id: {
+            $dateToString: {
+              format: "%Y-%m-%d",  
+              date: "$submittedAt"
+            }
+          },
+          count: { $sum: 1 }       
+        }
+      },
+      {
+        $sort: { _id: 1 }          
+      }
+    ]);
+
+    res.status(200).json({
+      message: "Chart data ready",
+      data: trend
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: "Data not received, check backend",
+      error
+    });
+  }
+});
+
+module.exports = route;
 
 
-
-
-
-module.exports = route

@@ -1,9 +1,11 @@
+
+require("dotenv").config();
 const express = require('express');
 const Dbconnection = require('./config/db.js');
 const route = require('./route/routing.js');  // your router
 const cors = require('cors');
 const port = 5000;
-
+ const googleRouts = require('./route/googleRout.js')
 const app = express();
 
 
@@ -23,6 +25,13 @@ Dbconnection();
 
 // Use router
 app.use("/", route);  // all routes from routing.js
+
+// google api routing
+
+app.use('/google',googleRouts)
+
+
+
 
 // Optional direct test route
 app.get("/test", (req, res) => {

@@ -1,6 +1,8 @@
 // AdminLayout.js
+import { NavLink, Outlet } from "react-router-dom";
 import React from "react";
 import AdminNav from "./AdminNav";
+import DashboardOver from "./DashboardOver";
 
 const AdminLayout = ({ children }) => {
   return (
@@ -9,7 +11,7 @@ const AdminLayout = ({ children }) => {
       {/* Global Navbar */}
       <AdminNav />
 
-      {/* Content Area (removes big top space) */}
+    
       <div className="container-fluid mt-3">
         <div className="row">
 
@@ -17,20 +19,25 @@ const AdminLayout = ({ children }) => {
           <div className="col-3">
             <aside className="bg-white p-3 rounded shadow mb-3">
               <ul className="list-unstyled">
-                <li className="p-2 mb-2 bg-primary text-white rounded">Dashboard Overview</li>
-                <li className="p-2 mb-2 bg-light rounded">All Reviews</li>
-                <li className="p-2 mb-2 bg-light rounded">Pending Approvals</li>
-                <li className="p-2 mb-2 bg-light rounded">Analytics</li>
-                <li className="p-2 mb-2 bg-light rounded">Cloud API Data</li>
+                <li className="p-2 mb-2 bg-primary text-white rounded"><NavLink to="/adminmanager/dashboard" className="p-2 d-block bg-light rounded">
+                    Dashboard Overview
+                  </NavLink></li>
+                <li className="p-2 mb-2 bg-light rounded"><NavLink to="/adminmanager/google-business" className="p-2 d-block bg-light rounded">
+                    Google Business
+                  </NavLink></li>
+                <li className="p-2 mb-2 bg-light rounded"><NavLink to="/adminmanager/approval" className="p-2 d-block bg-light rounded">Pending Approvals</NavLink></li>
+                <li className="p-2 mb-2 bg-light rounded"><NavLink to="/adminmanager/analytics" className="p-2 d-block bg-light rounded">
+                    Analytics
+                  </NavLink></li>
+                <li className="p-2 mb-2 bg-light rounded"></li>
               </ul>
             </aside>
 </div>
             
           {/* Main Content */}
           <div className="col-9 p-3 main-content">
-            {children}
-            <h2>Welcome to Admin Panel</h2>
-            <p>Select a menu item to view details.</p>
+            <Outlet />  
+            
           </div>
 
         </div>

@@ -1,12 +1,15 @@
 import React from "react";
 import axios from "axios"
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
 const Login = () => {
 const [emailid , setemailid] = useState('admin@test.com')
   const [password , setpassword] = useState('admin@123&78')
+
+  const navigate = useNavigate()
    const handleEmail = (e) => setemailid(e.target.value);
 const handlePassword = (e) => setpassword(e.target.value);
   
@@ -23,6 +26,10 @@ emailid,password
 
 console.log(res.data)
 alert(res.data.message)
+ if (res.status === 201){
+
+  navigate('/adminmanager')
+ }
 
 })
 

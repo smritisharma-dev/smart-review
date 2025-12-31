@@ -23,6 +23,54 @@ font-size: 35px;
 transition: color 0.2s
 
  }
+ .google-connect-btn {
+  background-color: #1a73e8; /* Google blue */
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.google-connect-btn:hover {
+  background-color: #1558b0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.google-connect-btn:active {
+  background-color: #174ea6;
+}
+
+.google-connect-btn {
+  background-color: #1a73e8; /* Google blue */
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.google-connect-btn:hover {
+  background-color: #1558b0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.google-connect-btn:active {
+  background-color: #174ea6;
+}
+
+.google-connect-btn:disabled {
+  background-color: #c2c2c2;
+  cursor: not-allowed;
+}
+
+
  .btnsubmit {
   padding: 5px;
   background: blue !important;
@@ -32,33 +80,8 @@ transition: color 0.2s
   
   
 }
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.main-content {
+  margin-top: 0 !important;
+  padding-top: 10px; /* optional */
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
