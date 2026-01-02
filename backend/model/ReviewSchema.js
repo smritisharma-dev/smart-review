@@ -11,6 +11,9 @@ heading:{type:String , required:true,trim:true},
 
 message:{type:String , required:true,trim:true},
 emailid :{type:String , required:true,trim:true},
+name:{type:String},
+
+
 status:{type:String , 
     
     enum: ["pending", "approved", "rejected"],
@@ -23,7 +26,11 @@ status:{type:String ,
     default: null
   }
 }, {
-  timestamps: { createdAt: 'submittedAt', updatedAt: 'modifiedAt' }
+  timestamps: { createdAt: 'submittedAt', updatedAt: 'modifiedAt' },
+
+ 
+
+
 });
 
   

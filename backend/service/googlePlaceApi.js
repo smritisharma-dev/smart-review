@@ -1,4 +1,6 @@
 const axios = require("axios");
+
+const googleReviewRating = require('../model/googleReviewRating')
 require("dotenv").config();
 
 /*
