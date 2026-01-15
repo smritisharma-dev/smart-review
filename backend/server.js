@@ -1,44 +1,32 @@
-
 require("dotenv").config();
-const express = require('express');
-const Dbconnection = require('./config/db.js');
-const route = require('./route/routing.js');  // your router
-const cors = require('cors');
-const port = 5000;
- const googleRouts = require('./route/googleRout.js')
+const express = require("express");
+const cors = require("cors");
+
+const Dbconnection = require("./config/db.js");
+const route = require("./route/routing.js");
+const googleRoutes = require("./route/googleRout.js");
+
 const app = express();
+const port = 5000;
 
+/* CORS */
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
+    credentials: true
+  })
+);
 
-// CORS configuration
-app.use(cors({
-  origin: "http://localhost:5173",              // your frontend URL
-  methods: ["POST", "GET", "PUT", "DELETE"],   // allowed HTTP methods
-  credentials: true                             // allow cookies/auth headers
-}));
-
-// Middleware to parse JSON
+/* Middlewares */
 app.use(express.json());
 
-// Connect to database
+/* DB */
 Dbconnection();
 
+/* Routes */
+app.use("/", route);
+app.use("/google", googleRoutes);
 
-// Use router
-app.use("/", route);  // all routes from routing.js
-
-// google api routing
-
-app.use('/google',googleRouts)
-
-
-
-
-// Optional direct test route
-app.get("/test", (req, res) => {
-  res.send("it is routing testing");
-});
-
-// Start server
-app.listen(port, () => {
-  console.log(`port is running on http://localhost:${port}`);
-});
+/* Start Server */
+app.listen(port);

@@ -21,7 +21,7 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav">
-            <Link className="nav-link active" aria-current="page" to="/reviewPage">Review Us</Link>
+            
             <Link className="nav-link" to="/showreview">Show Reviews</Link>
             <Link className="nav-link" to="/adminLogin">Login Admin</Link>
             <span className="nav-link disabled" aria-disabled="true">Disabled</span>

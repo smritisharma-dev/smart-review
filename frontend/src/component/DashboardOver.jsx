@@ -1,83 +1,77 @@
 import React from "react";
-import axios from 'axios'
-import { useEffect,useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Trendchart from "./Trendchart";
+import StatusPieChart from "./StatusPieChart";
 
 const DashboardOver = () => {
-const [Review , setReview] =useState([])
+  const [Review, setReview] = useState([]);
+  const [totalReview, SettotalReview] = useState(0);
+  const [pendingRev, setpendingRev] = useState(0);
+  const [avgRating, setavgRating] = useState(0);
+  const [allReviews, setAllReviews] = useState({ pending: 0, approved: 0, rejected: 0 });
 
-const[totalReview, SettotalReview] = useState(0)
-const[pendingRev,setpendingRev] = useState(0)
-const[avgRating , setavgRating] = useState(0)
-useEffect(()=>{
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/fetchReview")
+      .then((res) => {
+        setReview(res.data.latestReview);
+        SettotalReview(res.data.totalReview);
+        setpendingRev(res.data.pendingReview);
+        setavgRating(res.data.averageRating);
+      })
+      .catch(() => {});
+  }, []);
 
-axios.get('http://localhost:5000/fetchReview')
+  // extracting chart data
+  const getChartData = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/fetchReview");
+      const all = res.data.showReview || [];
 
-.then(res=>{
-  
+      const pending = all.filter((i) => i.status === "pending").length;
+      const approved = all.filter((i) => i.status === "approved").length;
+      const rejected = all.filter((i) => i.status === "rejected").length;
 
-  
- console.log( res.data.latestReview)
- setReview(res.data.latestReview)
- SettotalReview(res.data.totalReview)
- setpendingRev(res.data.pendingReview)
- setavgRating(res.data.averageRating)
-})
+      setAllReviews({ pending, approved, rejected });
+    } catch (error) {}
+  };
 
-.catch(error=>{
-
-  console.log(error.response?.data || error.message)
-})
-
-},[])
+  useEffect(() => {
+    getChartData();
+  }, []);
 
   return (
     <div className="container-fluid bg-light p-4">
-
-      {/* ROW 1: Analytics + Stats */}
       <div className="row mb-3">
-
-        {/* LEFT */}
         <div className="col-md-8">
-
-          {/* Review Trend */}
           <div className="card mb-2 shadow-sm border-0">
             <div className="card-body">
-              
-
-              
-              
-                <Trendchart/>
-              
+              <Trendchart />
             </div>
           </div>
 
-          {/* Visitor Analytics */}
           <div className="card shadow-sm border-0">
             <div className="card-body">
-              <h6 className="mb-1">Visitor Analytics</h6>
+              <h6 className="mb-1">Review Status Overview</h6>
               <p className="text-muted small mb-2">
-                Profile views & interactions
+                Pending, Approved & Rejected reviews
               </p>
-
               <div
-                className="d-flex align-items-center justify-content-center text-muted"
+                className="d-flex align-items-center justify-content-center"
                 style={{
-                  height: "180px",
+                  height: "320px",
                   backgroundColor: "#f1f3f5",
-                  borderRadius: "6px"
+                  borderRadius: "6px",
                 }}
               >
-                Visitor Analytics Chart
+                <StatusPieChart data={allReviews} />
               </div>
             </div>
           </div>
-
         </div>
 
-        {/* RIGHT */}
         <div className="col-md-4">
-
           <div className="card mb-1 bg-primary text-white shadow-sm">
             <div className="card-body text-center">
               <h6>Total Reviews</h6>
@@ -98,17 +92,12 @@ axios.get('http://localhost:5000/fetchReview')
               <h2>{Number(avgRating.toFixed(1))} ⭐</h2>
             </div>
           </div>
-
         </div>
       </div>
 
-      {/* ROW 2: Recent Reviews Table */}
       <div className="row">
         <div className="col-12">
-          <div
-            className="card shadow-sm border-0 p-3"
-            style={{ backgroundColor: "#f5f7fb" }}
-          >
+          <div className="card shadow-sm border-0 p-3" style={{ backgroundColor: "#f5f7fb" }}>
             <h5 className="card-title mb-3">Recent Reviews</h5>
 
             <table className="table table-hover align-middle">
@@ -121,33 +110,29 @@ axios.get('http://localhost:5000/fetchReview')
                   <th>Email</th>
                 </tr>
               </thead>
-
               <tbody>
-
-                {Review.map((value,index)=>{
-
-                  return(
-                <tr key={index}>
-                  <td>{new Date(value.submittedAt).toLocaleDateString("en-IN", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric"
-  })}</td>
-                  <td><span style={{ color: "#f5c518", fontSize: "18px" }}>
-    {"★".repeat(value.rating)}
-  </span></td>
-                  <td>{value.heading}</td>
-                  <td>{value.message}</td>
-                  <td>{value.emailid}</td>
-                </tr>
-                )})
-}
+                {Review.map((value, index) => (
+                  <tr key={index}>
+                    <td>
+                      {new Date(value.submittedAt).toLocaleDateString("en-IN", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </td>
+                    <td style={{ color: "#f5c518", fontSize: "18px" }}>
+                      {"★".repeat(value.rating)}
+                    </td>
+                    <td>{value.heading}</td>
+                    <td>{value.message}</td>
+                    <td>{value.emailid}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         </div>
       </div>
-
     </div>
   );
 };

@@ -9,14 +9,16 @@ function App() {
   const [review, setReview] = useState({
     heading: "",
     emailid: "",
-    message: ""
+    message: "",
+    name:""
   })
 
   const [error, setError] = useState({
     rating: "",
     heading: "",
     message: "",
-    emailid: ""
+    emailid: "",
+    name:""
   })
 
   const [success, setSuccess] = useState("")
@@ -30,7 +32,7 @@ function App() {
     }))
 
     // Clear previous errors & success
-    setError({ rating: "", heading: "", message: "", emailid: "" })
+    setError({ rating: "", heading: "", message: "", emailid: "" ,name:""})
     setSuccess("")
   }
 
@@ -40,6 +42,11 @@ function App() {
     let flag = true
 
     // Rating validation
+    if(review.name.trim()===0){
+      setError(pre=> ({ ...pre,name:"name should be character"}))   
+    flag= false
+    return 
+    }
     if (rating === 0) {
       setError(prev => ({
         ...prev,
@@ -90,6 +97,7 @@ function App() {
     console.log("Review Heading:", review.heading)
     console.log("Review Message:", review.message)
     console.log("emailid:", review.emailid)
+    console.log("name:", review.name)
 
     
 
@@ -104,7 +112,7 @@ console.log(res.data)
       setSuccess("")
     }, 3000)
  // Reset form
-    setReview({ heading: "", emailid: "", message: "" })
+    setReview({ heading: "", emailid: "", message: "" ,name:""})
     setRating(0)
     setHover(0)
 
@@ -119,6 +127,7 @@ return (
         <div className='bg-light p-4 review-box' style={{ maxWidth: '600px', width: '100%' }}>
 
           <h2 className='text-center text-primary mb-4'>Write a Review</h2>
+          
 
           <h4 className='text-center mb-3'>Select Rating</h4>
           <div className='text-center mb-4'>
@@ -162,7 +171,18 @@ return (
             />
           </div>
           {error.heading && <span className='text-danger'>{error.heading}</span>}
-
+<div className='d-flex justify-content-center my-3'>
+            <input
+              type="text"
+              name='name'
+              value={review.name}
+              onChange={handler}
+              className='form-control'
+              placeholder='Enter your ,name'
+              style={{ maxWidth: '400px' }}
+            />
+            {error.name && <span className='text-danger'>{error.name}</span>}
+          </div>
           <div className='d-flex justify-content-center my-3'>
             <input
               type="email"
