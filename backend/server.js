@@ -29,4 +29,6 @@ app.use("/", route);
 app.use("/google", googleRoutes);
 
 /* Start Server */
-app.listen(port);
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
