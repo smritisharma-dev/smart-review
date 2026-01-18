@@ -102,7 +102,16 @@ function App() {
     
 
 
-  axios.post('http://localhost:5000/preview',{rating,review})
+  axios.post('http://localhost:5000/preview',{
+    rating,
+    heading: review.heading,
+    name: review.name,
+ 
+  emailid: review.emailid,
+   message: review.message
+
+
+  })
 .then((res)=>{res.data
 console.log(res.data)
 

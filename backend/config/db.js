@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 const Dbconnection=async()=> {
   try{
 
-await mongoose.connect("mongodb://127.0.0.1:27017/adminReview")
+await mongoose.connect(process.env.MONGO_URI)
 
 console.log("data base connected")
   }

@@ -9,13 +9,11 @@ const route = express.Router();
 ========================= */
 route.post("/preview", async (req, res) => {
   try {
-    const { rating, review } = req.body;
-    if (!rating || !review) {
-      return res.status(400).json({ message: "Rating and review is missing" });
-    }
+    const { rating, heading, emailid, message, name } = req.body;
+    
 
-    const { heading, emailid, message, name } = review;
-    if (!heading?.trim() || !message?.trim() || !emailid?.trim() || !name?.trim()) {
+    
+    if (!rating || !heading?.trim() || !message?.trim() || !emailid?.trim() || !name?.trim()) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
