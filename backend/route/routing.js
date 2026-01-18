@@ -10,9 +10,7 @@ const route = express.Router();
 route.post("/preview", async (req, res) => {
   try {
     const { rating, heading, emailid, message, name } = req.body;
-    
 
-    
     if (!rating || !heading?.trim() || !message?.trim() || !emailid?.trim() || !name?.trim()) {
       return res.status(400).json({ message: "All fields are required" });
     }
@@ -33,6 +31,7 @@ route.post("/preview", async (req, res) => {
     return res.status(500).json({ message: "Review not posted", error: error.message });
   }
 });
+
 
 /* =========================
    GET — fetch dashboard data

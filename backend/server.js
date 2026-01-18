@@ -1,5 +1,6 @@
 require("dotenv").config();
-console.log("MONGO:", process.env.MONGO_URI)
+
+
 const express = require("express");
 const cors = require("cors");
 
@@ -8,7 +9,8 @@ const route = require("./route/routing.js");
 const googleRoutes = require("./route/googleRout.js");
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
+
 
 /* CORS */
 app.use(

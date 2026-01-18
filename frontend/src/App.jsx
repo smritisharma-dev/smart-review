@@ -42,7 +42,7 @@ function App() {
     let flag = true
 
     // Rating validation
-    if(review.name.trim()===0){
+    if(review.name.trim()===""){
       setError(pre=> ({ ...pre,name:"name should be character"}))   
     flag= false
     return 
@@ -102,6 +102,7 @@ function App() {
     
 
 
+
   axios.post('http://localhost:5000/preview',{
     rating,
     heading: review.heading,
@@ -112,6 +113,7 @@ function App() {
 
 
   })
+  
 .then((res)=>{res.data
 console.log(res.data)
 
