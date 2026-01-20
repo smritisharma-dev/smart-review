@@ -6,7 +6,7 @@ function ShowReview() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/fetchReview")
+      .get("https://smart-review-backend.onrender.com/fetchReview")
       .then((res) => {
         const approvedOnly = (res.data.showReview || []).filter(
           (item) => item.status === "approved"

@@ -10,7 +10,7 @@ import Login from "./component/Login";
 
 import AdminLayout from "./component/AdminLayout";
 import DashboardOver from "./component/DashboardOver";
-import Analytics from "./component/Analytics";
+
 import GoogleBusinessResponse from "./component/GoogleBusinessResponse";
 import Approval from "./component/Approval";
 
@@ -32,7 +32,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="dashboard" element={<DashboardOver />} />
           <Route path="google-business" element={<GoogleBusinessResponse />} />
           <Route path="review/:status" element={<Approval />} />
-          <Route path="analytics" element={<Analytics />} />
+          
         </Route>
       </Routes>
     </div>

@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 
-const ApiUrl = "http://localhost:5000/google"
+const ApiUrl = "https://smart-review-backend.onrender.com/google"
 
 
 

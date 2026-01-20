@@ -17,7 +17,7 @@ const onSubmit=()=>{
     
 
 
-axios.post('http://localhost:5000/admin',{
+axios.post('https://smart-review-backend.onrender.com/admin',{
 emailid,password
 
 })

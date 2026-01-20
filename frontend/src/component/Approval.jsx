@@ -22,7 +22,7 @@ function Approval() {
   const showReviews = async (status) => {
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:5000/review/${status}`);
+      const res = await axios.get(`https://smart-review-backend.onrender.com/review/${status}`);
       setReview(res.data.data || []);
       setStatus(status);
     } catch (error) {
@@ -35,7 +35,7 @@ function Approval() {
   const approvedReview = async (id) => {
     setLoading(true);
     try {
-      await axios.patch(`http://localhost:5000/review/${id}/approve`);
+      await axios.patch(`https://smart-review-backend.onrender.com/review/${id}/approve`);
       setReview((pre) => pre.filter((item) => item._id !== id));
     } catch (error) {} 
     finally {
@@ -46,7 +46,7 @@ function Approval() {
   const rejectReview = async (id) => {
     setLoading(true);
     try {
-      await axios.patch(`http://localhost:5000/review/${id}/reject`);
+      await axios.patch(`https://smart-review-backend.onrender.com/review/${id}/reject`);
       setReview((pre) => pre.filter((item) => item._id !== id));
     } catch (error) {} 
     finally {
@@ -58,7 +58,7 @@ function Approval() {
     setLoading(true);
     try {
       const res = await axios.patch(
-        `http://localhost:5000/review/${id}/edit`,
+        `https://smart-review-backend.onrender.com/review/${id}/edit`,
         editedData
       );
       const updatedReview = res.data.data;

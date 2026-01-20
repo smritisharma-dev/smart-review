@@ -103,7 +103,7 @@ function App() {
 
 
 
-  axios.post('http://localhost:5000/preview',{
+  axios.post('https://smart-review-backend.onrender.com/preview',{
     rating,
     heading: review.heading,
     name: review.name,
