@@ -26,7 +26,7 @@ const DashboardOver = () => {
   // extracting chart data
   const getChartData = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/fetchReview");
+      const res = await axios.get("https://smart-review-backend.onrender.com/fetchReview");
       const all = res.data.showReview || [];
 
       const pending = all.filter((i) => i.status === "pending").length;

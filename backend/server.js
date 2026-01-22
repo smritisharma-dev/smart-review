@@ -14,8 +14,8 @@ const app = express();
 /* Allowed Origins */
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://your-frontend-name.onrender.com",
-  "https://your-frontend-name.netlify.app"
+  "https://ephemeral-pixie-b971fe.netlify.app/"
+  
 ];
 
 /* CORS */
