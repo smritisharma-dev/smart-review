@@ -26,7 +26,7 @@ const Trendchart = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/drawChart")
+      .get("frontend/src/component/Approval.jsx/drawChart")
       .then((res) => {
         setDataChart(res.data.data);
       })
