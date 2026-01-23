@@ -14,24 +14,29 @@ const app = express();
 /* Allowed Origins */
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://ephemeral-pixie-b971fe.netlify.app/"
+  "https://smart-review-management.netlify.app"
   
 ];
 
-/* CORS */
+
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      const normalizedOrigin = origin.replace(/\/$/, "");
+
+      if (allowedOrigins.includes(normalizedOrigin)) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
       }
     },
-    methods: ["POST", "GET", "PUT", "PATCH", "DELETE"],
-    credentials: true
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
   })
 );
+
 
 /* Middlewares */
 app.use(express.json());
