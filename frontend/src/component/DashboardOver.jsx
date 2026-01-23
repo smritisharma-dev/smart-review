@@ -13,7 +13,7 @@ const DashboardOver = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/fetchReview")
+      .get("https://smart-review-backend.onrender.com/fetchReview")
       .then((res) => {
         setReview(res.data.latestReview);
         SettotalReview(res.data.totalReview);
