@@ -26,7 +26,7 @@ const Trendchart = () => {
 
   useEffect(() => {
     axios
-      .get("frontend/src/component/Approval.jsx/drawChart")
+      .get("https://smart-review-backend.onrender.com/drawChart")
       .then((res) => {
         setDataChart(res.data.data);
       })
